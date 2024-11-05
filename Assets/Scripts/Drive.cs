@@ -6,6 +6,9 @@ public class Drive : MonoBehaviour
 {
     public float speed = 10.0f;
     public float rotationSpeed = 100.0f;
+    public Transform transGun;
+    public Transform Gun;
+    public GameObject bulletObj;
 
     void Update()
     {
@@ -14,6 +17,7 @@ public class Drive : MonoBehaviour
         // The value is in the range -1 to 1
         float translation = Input.GetAxis("Vertical") * speed;
         float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
+
 
         // Make it move 10 meters per second instead of 10 meters per frame...
         translation *= Time.deltaTime;
@@ -24,5 +28,18 @@ public class Drive : MonoBehaviour
 
         // Rotate around our y-axis
         transform.Rotate(0, rotation, 0);
+
+        if (Input.GetKey(KeyCode.T))
+        {
+            transGun.RotateAround(transGun.position, transGun.right, -2);
+        }
+        else if (Input.GetKey(KeyCode.G))
+        {
+            transGun.RotateAround(transGun.position, transGun.right, 2);
+        }
+        else if (Input.GetKeyDown(KeyCode.B))
+        {
+            Instantiate(bulletObj, Gun.position, Gun.rotation);
+        }
     }
 }
